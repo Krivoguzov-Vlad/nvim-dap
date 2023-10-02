@@ -380,8 +380,10 @@ function M.append(line, lnum, opts)
   else
     api.nvim_buf_set_lines(buf, lnum, lnum, true, lines)
   end
-  if autoscroll and repl.win and api.nvim_win_is_valid(repl.win) then
-    pcall(api.nvim_win_set_cursor, repl.win, { lnum + 2, 0 })
+  
+  local repl_win = vim.fn.bufwinid("\\[dap-repl\\]") -- workaround, for some reason repl.win is nil
+  if autoscroll and repl_win and api.nvim_win_is_valid(repl_win) then
+    pcall(api.nvim_win_set_cursor, repl_win, { lnum + 2, 0 })
   end
   return lnum
 end

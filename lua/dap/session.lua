@@ -1191,7 +1191,7 @@ local function spawn_server_executable(executable, session)
       assert(not err, err)
       if chunk then
         vim.schedule(function()
-          repl.append('[debug-adapter ' .. stream .. '] ' .. chunk)
+          repl.append('[debug-adapter ' .. stream .. '] ' .. chunk, nil, { newline = false })
         end)
       else
         pipe:close()
